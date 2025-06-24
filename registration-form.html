@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Pawfect Match</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="image/logo.jpg" alt="Pawfect Match Logo" width="125">
+                </div>
+                <nav class="main-menu">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="page2.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="page3.html">Contact</a></li>
+                        <li><a href="registration-form.html" aria-current="page">Register</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main id="app">
+            <h1>Create Your Pawfect Match Account</h1>
+            <form @submit.prevent="submitForm" novalidate>
+                <fieldset>
+                    <legend>Registration Information</legend>
+                    
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" v-model.trim="form.username" required>
+                    <span v-if="errors.username" class="error">{{ errors.username }}</span>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" v-model.trim="form.email" required>
+                    <span v-if="errors.email" class="error">{{ errors.email }}</span>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" v-model="form.password" required>
+                    <span v-if="errors.password" class="error">{{ errors.password }}</span>
+
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" v-model="form.confirmPassword" required>
+                    <span v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword }}</span>
+
+                    <label>User Type:</label>
+                    <select v-model="form.userType" required>
+                        <option disabled value="">Select user type</option>
+                        <option>Adopter</option>
+                        <option>Donor</option>
+                        <option>Staff</option>
+                    </select>
+                    <span v-if="errors.userType" class="error">{{ errors.userType }}</span>
+                    
+                    <input type="submit" value="Register">
+                </fieldset>
+            </form>
+            <div v-if="submitted" class="confirmation">
+                <h2>Registration Successful!</h2>
+                <p>Thank you for registering, {{ form.username }}. You can now log in and start your journey with Pawfect Match.</p>
+            </div>
+        </main>
+        <footer>
+            <div id="nondisclaimer">
+                <div class="copy"></div>
+                <p>&copy; Copyright 2024 Pawfect Match</p>
+            </div>
+            <div class="social">
+                <h3>Follow us on social media!</h3>
+                <a href="https://facebook.com"><img src="image/facebook_icon.jpg" alt="facebook" width="30"></a>
+                <a href="https://instagram.com"><img src="image/instagram_logo.jpg" alt="Instagram" width="30"></a>
+                <a href="https://twitter.com"><img src="image/logo_of_twitter.jpg" alt="Twitter" width="30"></a>
+            </div>
+            <div id="disclaimer">
+                <p>This website is designed and created solely for educational purposes at Westcliff University. All contents are not intended for any commercial gain or use.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- Vue.js CDN -->
+    <script src="https://unpkg.com/vue@2.7.16/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          form: {
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            userType: ''
+          },
+          submitted: false,
+          errors: {}
+        },
+        methods: {
+          submitForm() {
+            this.errors = {};
+
+            // Username required
+            if (!this.form.username) {
+              this.errors.username = "Username is required.";
+            }
+
+            // Email required and pattern
+            if (!this.form.email) {
+              this.errors.email = "Email is required.";
+            } else if (!this.validateEmail(this.form.email)) {
+              this.errors.email = "Invalid email address.";
+            }
+
+            // Password strength
+            if (!this.form.password) {
+              this.errors.password = "Password is required.";
+            } else if (this.form.password.length < 8) {
+              this.errors.password = "Password must be at least 8 characters.";
+            } else if (!/\d/.test(this.form.password)) {
+              this.errors.password = "Password must include at least one number.";
+            }
+
+            // Confirm password matches
+            if (!this.form.confirmPassword) {
+              this.errors.confirmPassword = "Please confirm your password.";
+            } else if (this.form.password !== this.form.confirmPassword) {
+              this.errors.confirmPassword = "Passwords do not match.";
+            }
+
+            // User type
+            if (!this.form.userType) {
+              this.errors.userType = "Please select a user type.";
+            }
+
+            // Only submit if there are no errors
+            if (Object.keys(this.errors).length === 0) {
+              this.submitted = true;
+              // Optionally, send data to backend here
+              // Reset form if you want:
+              // this.form = { username: '', email: '', password: '', confirmPassword: '', userType: '' };
+            }
+          },
+          validateEmail(email) {
+            // Simple regex for email
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+          }
+        }
+      });
+    </script>
+    <style>
+    .error {
+        color: #c0392b;
+        font-size: 0.95em;
+        display: block;
+        margin-bottom: 0.5em;
+    }
+    .confirmation {
+        margin-top: 2em;
+        padding: 2em;
+        background: #eaffea;
+        border: 2px solid #9ed034;
+        border-radius: 8px;
+        color: #106400;
+        text-align: center;
+    }
+    </style>
+</body>
+</html>
