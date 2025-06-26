@@ -3,22 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Gallery | Pawfect Match</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0C4795">
+    <link rel="apple-touch-icon" href="/image/pawfect_match.png">
 </head>
 <body>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service worker registered:', reg))
+                    .catch(err => console.log('Service worker registration failed:', err));
+            });
+        }
+    </script>
     <header>
         <div class="main-header">
             <div class="logo">
                 <img src="image/pawfect_match.png" alt="Pawfect Match Logo" width="125">
             </div>
-            <nav class="main-menu">
+            <nav class="main-menu" aria-label="Main Navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="page2.html">About</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="gallery.html" aria-current="page" class="active">Gallery</a></li>
                     <li><a href="page3.html">Contact</a></li>
-                    <li><a href="registration-form.html" aria-current="page">Register</a></li>
+                    <li><a href="registration-form.html">Register</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,7 +40,7 @@
         <section id="gallery">
             <h1>Photo Gallery</h1>
             <ul class="gallery-grid" id="photo-gallery"></ul>
-            <div id="info-box" class="hidden">
+            <div id="info-box" class="hidden" tabindex="-1">
                 <h2 id="info-heading"></h2>
                 <p id="info-text"></p>
                 <a href="#" id="close-info-box">Click This To Close</a>
@@ -37,7 +50,7 @@
     <footer>
         <div id="nondisclaimer">
             <div class="copy">
-                <p>&copy; Copyright 2024</p>
+                <p>&copy; Copyright 2024 Pawfect Match</p>
             </div>
             <div class="social">
                 <h3>Follow us on social media!</h3>
@@ -50,9 +63,7 @@
             <p>This website is designed and created solely for educational purposes only at Westcliff University. All contents are not intended for any commercial gain or use.</p>
         </div>
     </footer>
+    <!-- Gallery JS (Vanilla or Vue) -->
     <script src="gallery.js"></script>
 </body>
 </html>
-
-git config --global user.email "tinghsu0204@gmail.com"
-git config --global user.name "MantingHsu"

@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | Pawfect Match</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- PWA Manifest and theme color -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0C4795">
+    <link rel="apple-touch-icon" href="image/pawfect_match.png">
 </head>
 <body>
+    <script>
+      // Service Worker registration for PWA
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(reg => console.log('Service worker registered:', reg))
+            .catch(err => console.log('Service worker registration failed:', err));
+        });
+      }
+    </script>
     <div id="container">
         <header>
             <div class="main-header">

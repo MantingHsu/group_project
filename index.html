@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pawfect Match</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0C4795">
+    <link rel="apple-touch-icon" href="/image/pawfect_match.png">
 </head>
 <body>
     <div id="container">
@@ -24,7 +27,6 @@
                 </nav>
             </div>
         </header>
-        <!-- Main content controlled by Vue.js -->
         <main id="app">
             <section id="home">
                 <h2>{{ headline }}</h2>
@@ -81,6 +83,16 @@
                 ]
             }
         });
+    </script>
+    <!-- Service worker registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(reg => console.log('Service worker registered:', reg))
+              .catch(err => console.log('Service worker registration failed:', err));
+          });
+        }
     </script>
 </body>
 </html>

@@ -66,3 +66,24 @@ app.get('/api/seed', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Server started on port 3000'));
+
+// Registration schema/model
+const registrationSchema = new mongoose.Schema({
+    username: String,
+    email: String,
+    password: String,     // In production: HASH passwords!
+    userType: String,
+    registeredAt: { type: Date, default: Date.now }
+});
+const Registration = mongoose.model('Registration', registrationSchema);
+
+// POST: New registration
+app.post('/api/register', async (req, res) => {
+    try {
+        const registration = new Registration(req.body);
+        await registration.save();
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
