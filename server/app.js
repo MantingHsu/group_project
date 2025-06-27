@@ -146,3 +146,11 @@ app.post('/api/logout', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+module.exports = app;
+
+// Only start the server if app.js is run directly
+ if (require.main === module) {
+   const PORT = process.env.PORT || 3000;
+   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+ }

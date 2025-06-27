@@ -3,7 +3,22 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    //"test": "echo \"Error: no test specified\" && exit 1"
+     "scripts": {
+  "start": "node app.js",
+  "test": "jest --detectOpenHandles --forceExit"
+ },
+"jest": {
+   "testEnvironment": "node",
+   "verbose": true,
+   "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"]
+ },
+ "dependencies": {
+
+ },
+ "devDependencies": {
+ }
+
   },
   "keywords": [],
   "author": "",
