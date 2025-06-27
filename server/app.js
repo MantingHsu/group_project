@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 mongoose.connect('mongodb://localhost:27017/pawfectmatch', {
     useNewUrlParser: true,
@@ -10,8 +13,29 @@ mongoose.connect('mongodb://localhost:27017/pawfectmatch', {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log(err));
 
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
+
+// Session configuration
+app.use(
+  session({
+    secret: 'your-session-secret',             // replace with strong secret in production
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://localhost:27017/pawfectmatch-sessions',
+      collectionName: 'sessions'
+    }),
+    cookie: {
+      httpOnly: true,
+      secure: false,       // set to true if using HTTPS
+      sameSite: 'lax',     // helps protect against CSRF
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    }
+  })
+);
 
 // Animal schema/model
 const animalSchema = new mongoose.Schema({
@@ -87,3 +111,38 @@ app.post('/api/register', async (req, res) => {
         res.status(500).json({ success: false, error: err.message });
     }
 });
+
+// User login
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+  const user = await Registration.findOne({ email, password });
+  if (!user) {
+    return res.status(401).json({ success: false, message: 'Invalid credentials' });
+  }
+  // Save user ID in session
+  req.session.userId = user._id;
+  res.json({ success: true, userId: user._id });
+});
+
+// Check session (auth status)
+app.get('/api/me', (req, res) => {
+  if (req.session.userId) {
+    return res.json({ authenticated: true, userId: req.session.userId });
+  }
+  res.json({ authenticated: false });
+});
+
+// User logout
+app.post('/api/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ success: false, message: 'Logout failed' });
+    }
+    res.clearCookie('connect.sid');
+    res.json({ success: true });
+  });
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
