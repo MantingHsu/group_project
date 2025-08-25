@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Pawfect Match</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0C4795">
+    <link rel="apple-touch-icon" href="image/pawfect_match.png">
+</head>
+<body id="about">
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/service-worker.js')
+              .then(reg => console.log('Service worker registered:', reg))
+              .catch(err => console.log('Service worker registration failed:', err));
+          });
+        }
+    </script>
+    <title>Animal Adpotion</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body id="about">
+    <header>
+        <div class="main-header">
+            <div class="logo">
+                <img src="image/pawfect_match.png" alt="Pawfect Match Logo" width="125">
+            </div>
+            <nav class="main-menu" aria-label="Main Navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="page2.html" aria-current="page" class="active">About</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="page3.html">Contact</a></li>
+                    <li><a href="registration-form.html">Register</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section id="About">
+    <h1>About Us</h1>
+    <p> Welcome to DTLA Animal Adoption!We are dedicated to finding loving homes for animals in need.
+        Our team works tirelessly to ensure that each animal is well-cared for until they find their forever home.</p>
+    <h2>Our Mission</h2>
+    <p>To rescue and rehabilitate animals, both big and small, and to improve animal welfare in our community.
+       We strive to create lasting bonds between pets and their new families.
+    </p>
+<table>
+    <caption>Adoption Price lists</caption>
+    <thead>
+        <tr>
+            <th>Pet Type</th>
+            <th>Dogs</th>
+            <th>Puppies</th>
+            <th>cats</th>
+            <th>Kittens</th>
+            <th>Senior Pets</th>
+            <th>Small Pets (rabbits, guinea pigs)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Adoption Fee</td>
+            <td>$250</td>
+            <td>$300</td>
+            <td>$100</td>
+            <td>$150</td>
+            <td>$50</td>
+            <td>$30</td>
+        </tr>
+        <tr>
+            <td>Initial Supplies</td>
+            <td>$50</td>
+            <td>$75</td>
+            <td>$30</td>
+            <td>$40</td>
+            <td>$20</td>
+            <td>$10</td>
+        </tr>
+    </tbody>
+</table>
+</section>
+</main>
+<footer>
+<div id="nondisclaimer">
+    <div class="copy"></div>
+<p>&copy;Copyright 2024</p>
+</div>
+<div class="social">
+    <h3>Follow us on social media!</h3>
+    <a href="https://facebook.com"><img src="image/facebook_icon.jpg"alt="facebook" width="30"></a>
+    <a href="https://instagram.com"><img src="image/instagram_logo.jpg" alt="Instagram" width="30"></a>
+    <a href="https://twitter.com"><img src="image/logo_of_twitter.jpg" alt="Twitter" width="30"></a>
+</div>
+</div>
+<div id="disclaimer">
+    <p>This website is designed and created solely for educational purposes only at Westcliff University. All contents are not intended for any commercial gain or use.</p>
+</div>
+</footer>
+</body>
+</html>

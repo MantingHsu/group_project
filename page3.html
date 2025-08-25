@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Pawfect Match</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0C4795">
+    <link rel="apple-touch-icon" href="image/pawfect_match.png">
+</head>
+<body>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service worker registered:', reg))
+        .catch(err => console.log('Service worker registration failed:', err));
+    });
+  }
+</script>
+    <title>contact us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="contact">
+        <header>
+            <div id="container">
+                <div class="main-header">
+                    <div class="logo">
+                        <img src="image/pawfect_match.png" alt="Pawfect Match Logo" width="125">
+                    </div>
+                    <nav class="main-menu">
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="page2.html">About</a></li>
+                            <li><a href="gallery.html">Gallery</a></li>
+                            <li><a href="page3.html">Contact</a></li>
+                            <li><a href="registration-form.html" aria-current="page">Register</a></li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <main id="app">
+            <h1>Get in Touch With Us</h1>
+            <p>
+                We're here to help you find your perfect pet companion!
+                If you have any questions about our adoption process, available pets, or upcoming events, don't hesitate to reach out.
+            </p>
+            <form @submit.prevent="submitForm">
+                <fieldset>
+                    <legend>User Personal Information</legend>
+                    <label>Enter your full name:</label>
+                    <input type="text" name="name" v-model="form.name">
+
+                    <label>Enter your email:</label>
+                    <input type="email" name="email" v-model="form.email">
+
+                    <label>Enter your phone:</label>
+                    <input type="tel" name="phone" v-model="form.phone">
+
+                    <label>Select Pet Types</label>
+                    <input type="radio" name="petType" value="Dogs" v-model="form.petType">Dogs
+                    <input type="radio" name="petType" value="Cats" v-model="form.petType">Cats 
+                    <input type="radio" name="petType" value="Others" v-model="form.petType">Others 
+                    <br/>
+                    <label>How should we contact you?</label>
+                    <select v-model="form.contactMethod">
+                        <option>Email</option>
+                        <option>Phone</option>
+                    </select><br>
+                    <label>Tell us the reason of your visit today:</label>
+                    <textarea rows="5" cols="30" v-model="form.reason"></textarea>
+                    <input type="submit" value="Submit">
+                </fieldset>
+            </form>
+        </main>
+        <footer>
+            <div id="nondisclaimer">
+                <div class="copy"></div>
+                <p>&copy;Copyright 2024</p>
+            </div>
+            <div class="social">
+                <h3>Follow us on social media!</h3>
+                <a href="https://facebook.com"><img src="image/facebook_icon.jpg"alt="facebook" width="30"></a>
+                <a href="https://instagram.com"><img src="image/instagram_logo.jpg" alt="Instagram" width="30"></a>
+                <a href="https://twitter.com"><img src="image/logo_of_twitter.jpg" alt="Twitter" width="30"></a>
+            </div>
+            <div id="disclaimer">
+                <p>This website is designed and created solely for educational purposes only at Westcliff University. All contents are not intended for any commercial gain or use.</p>
+            </div>
+        </footer>
+    </div>
+    <!-- Vue.js CDN -->
+    <script src="https://unpkg.com/vue@2.7.16/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          form: {
+            name: '',
+            email: '',
+            phone: '',
+            petType: '',
+            contactMethod: 'Email',
+            reason: ''
+          }
+        },
+        methods: {
+          submitForm() {
+            alert('Thank you for contacting us, ' + this.form.name + '!');
+          }
+        }
+      });
+    </script>
+</body>
+</html>
